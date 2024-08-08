@@ -1,0 +1,66 @@
+ ***************************** 885. Spiral Matrix III ****************************************************************************************
+
+
+# Python Code 
+
+class Solution:
+    def spiralMatrixIII(self, rows: int, cols: int, rStart: int, cStart: int) -> List[List[int]]:
+        
+        result = [[rStart , cStart]]
+        if rows * cols == 1:
+            return result 
+        
+        steplength = 1
+        
+        while True:
+            
+            for rd, cd , currentStepCount in [[ 0, 1 , steplength] , [ 1, 0, steplength] , [ 0, -1 , steplength + 1], [ -1 , 0 , steplength + 1]]:
+                
+                for _ in range( currentStepCount ):
+                    
+                    rStart += rd
+                    cStart += cd
+                    
+                    if 0 <= rStart < rows and 0 <= cStart < cols:
+                        
+                        result.append([rStart , cStart])
+                        
+                        if len(result) == rows * cols:
+                            return result
+                        
+            steplength += 2
+
+
+//// C++ Code ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        vector<vector<int>> result = {{rStart, cStart}};
+        if (rows * cols == 1) {
+            return result;
+        }
+
+        int steplength = 1;
+
+        while (true) {
+            for (auto [rd, cd, currentStepCount] : vector<tuple<int, int, int>>{{0, 1, steplength}, {1, 0, steplength}, {0, -1, steplength + 1}, {-1, 0, steplength + 1}}) {
+                for (int i = 0; i < currentStepCount; ++i) {
+                    rStart += rd;
+                    cStart += cd;
+                    if (0 <= rStart && rStart < rows && 0 <= cStart && cStart < cols) {
+                        result.push_back({rStart, cStart});
+                        if (result.size() == rows * cols) {
+                            return result;
+                        }
+                    }
+                }
+            }
+            steplength += 2;
+        }
+    }
+};
